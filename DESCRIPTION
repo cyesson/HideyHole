@@ -1,0 +1,13 @@
+Package: HideyHole
+Title: Find holes in a digital elevation model raster grid
+Version: 0.0.0.9000
+Authors@R: 
+    person("Chris", "Yesson", , "chris.yesson@ioz.ac.uk", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-6731-4229"))
+Description: find local depressions or holes in a digital elevation model that could be hiding spaces for organisms  such as fish or crustaceans. Achieved by comparing pixel heights with local averages, withs holes defined as clusters of pixels  deeper than the local average by a given measure.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Imports: terra
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
