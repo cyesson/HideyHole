@@ -1,6 +1,8 @@
 # HideyHole
 
-Code to find small holes in a digital elevation model raster
+Code to find small holes in a digital elevation model raster.
+
+The code works by comparing pixel elevations against pixels in a local neighbourhood. pixels that are a chosen value below the average height in this neighbourhood are considered 'hidey holes'. The important tuning parameters are the size of the neighbourhood window (parameter neighbourhood) and the minimum and maximum hole sizes (parameters min.pixel and max.pixel).  These require exploration for your grid.
 
 Example
 ```r
