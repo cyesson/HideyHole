@@ -30,9 +30,9 @@ HideyHole <- function(r, neighbourhood=21, hole.depth=0.1,
                       #,default.crs='epsg:4326'){
 
     # default maximum hole size is the size of the neighbourhood used in the analysis
-    if(is.na(max.pixels)){
-        max.pixels<-neighbourhood^2
-    }
+    ## if(is.na(max.pixels)){
+    ##     max.pixels<-neighbourhood^2
+    ## }
 
     # calculate average depth over neighbourhood window
     r.av<-terra::focal(r, w=neighbourhood, fun=mean, na.rm=T)
@@ -58,8 +58,20 @@ HideyHole <- function(r, neighbourhood=21, hole.depth=0.1,
     # seperate by spatially distinct regions
     p4<-terra::disagg(p3)
 
-    # calculate area for each polygon
+    # calculate area & perimeter for each polygon
     p4$area <- terra::expanse(p4, transform=F)
+    p4$perimeter <- terra::perim(p4)
+    p4$width <- terra::width(p4)
+
+    # caculate circuference and diamter of circle the same area as the given polygon
+    p4$circumferenceC <- 2*((pi*p4$area)^0.5)
+    p4$diameterC <- (p4$area / pi)^0.5
+
+    # create metric defining perimeter complexity as ratio of observed perimeter with minimal (circle) perimeter of the same area
+    p4$perimeterComplexity <- p4$perimeter / p4$circumferenceC
+
+    # create metric of thinness / thickness of polygon relative to circle of the same area
+    p4$thinness <- p4$width / p4$diameterC
 
     # convert to pixels
     p4$pixels<-round(p4$area/(terra::res(r)[1]*terra::res(r)[2]),0)
@@ -67,8 +79,12 @@ HideyHole <- function(r, neighbourhood=21, hole.depth=0.1,
     # filter by area
     p4$hideyhole <- (as.integer(p4$pixels) > min.pixels)
 
-    # filter just hideyhole
-    p5 <- p4[p4$hideyhole==T,]
+    # filter just hideyholes that are within the size range
+    if(!is.na(max.pixels)){
+        p5 <- p4[p4$hideyhole==T & p4$pixels >= min.pixels & p4$pixels <= max.pixels,]
+    } else {
+        p5 <- p4[p4$hideyhole==T & p4$pixels >= min.pixels,]
+    }
 
     # fetch depth of hideyhole
     p5$relative.depth <- terra::extract(r.df, p5, fun=max)[,2]
