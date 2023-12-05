@@ -77,13 +77,13 @@ HideyHole <- function(r, neighbourhood=21, hole.depth=0.1,
     p4$pixels<-round(p4$area/(terra::res(r)[1]*terra::res(r)[2]),0)
 
     # filter by area
-    p4$hideyhole <- (as.integer(p4$pixels) > min.pixels)
+    p4$hideyhole <- (p4$pixels > min.pixels)
 
     # filter just hideyholes that are within the size range
     if(!is.na(max.pixels)){
-        p5 <- p4[p4$hideyhole==T & p4$pixels >= min.pixels & p4$pixels <= max.pixels,]
+        p5 <- p4[p4$hideyhole==T & p4$pixels <= max.pixels,]
     } else {
-        p5 <- p4[p4$hideyhole==T & p4$pixels >= min.pixels,]
+        p5 <- p4[p4$hideyhole==T,]
     }
 
     # fetch depth of hideyhole
