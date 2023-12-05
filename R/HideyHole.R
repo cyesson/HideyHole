@@ -51,6 +51,10 @@ HideyHole <- function(r, neighbourhood=21, hole.depth=0.1,
 
     # buffer negligably to ensure diagonally adjacent pixels overlap
     p2<-terra::buffer(p, width=terra::res(r)[1]/1000)
+    # check polygon validity and fix if needed (for donut-like holes)
+    if(!terra::is.valid(p2)){
+        p2<-terra::makeValid(p2)
+    }
 
     # merge spatially overlapping polygons
     p3<-terra::aggregate(p2, dissolve=T)
