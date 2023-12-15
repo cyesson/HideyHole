@@ -13,11 +13,12 @@ devtools::install_github("cyesson/TowedCameraTools")
 Example
 ```r
 # load your terra raster grid
-r<-terra::rast("myfile.tif")
+data(TestGrid)
 # run the hole finder with the default parameters
-h<-HideyHole(r)
+h<-HideyHole(TestGrid)
 # plot the original grid
-plot(r)
+plot(TestGrid)
 # overlay the holes we've found
 plot(h$HideyHoleVector, add=T)
 ```
+<img src="man/figures/TestGridExample.png" width="100%" />
