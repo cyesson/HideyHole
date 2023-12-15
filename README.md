@@ -15,10 +15,10 @@ Example
 # load your terra raster grid
 TestGrid<-terra::rast("https://github.com/cyesson/HideyHole/raw/main/data/TestGrid.tif")
 # run the hole finder with the default parameters
-h<-HideyHole(TestGrid)
+h<-HideyHole::HideyHole(TestGrid)
 # plot the original grid
-plot(TestGrid)
+terra::plot(TestGrid)
 # overlay the holes we've found
-plot(h$HideyHoleVector, add=T)
+terra::plot(h$HideyHoleVector, add=T)
 ```
 <img src="man/figures/TestGridExample.png" width="100%" />
