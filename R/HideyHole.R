@@ -19,9 +19,7 @@
 #'    min.pixels: Input parameter value
 #'    max.pixels: Input parameter value
 #' @examples
-#' set.seed<-1
-#' TestGrid<-terra::rast(matrix(runif(100), nrow=10, ncol=10))
-#' terra::crs(TestGrid)<-"epsg:27700"
+#' data(TestGrid)
 #' HideyHole(TestGrid, neighbourhood=5)
 #' @export
 
