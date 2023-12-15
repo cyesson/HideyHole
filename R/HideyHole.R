@@ -19,7 +19,7 @@
 #'    min.pixels: Input parameter value
 #'    max.pixels: Input parameter value
 #' @examples
-#' data(TestGrid)
+#' TestGrid<-terra::rast("https://github.com/cyesson/HideyHole/raw/main/data/TestGrid.tif")
 #' HideyHole(TestGrid, neighbourhood=5)
 #' @export
 

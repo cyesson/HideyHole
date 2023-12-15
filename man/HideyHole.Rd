@@ -43,6 +43,6 @@ such as fish or crustaceans. Achieved by comparing pixel heights with local aver
 deeper than the local average by a given measure.
 }
 \examples{
-data(TestGrid)
+TestGrid<-terra::rast("https://github.com/cyesson/HideyHole/raw/main/data/TestGrid.tif")
 HideyHole(TestGrid, neighbourhood=5)
 }
