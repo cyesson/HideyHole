@@ -77,7 +77,8 @@ HideyHole <- function(r, neighbourhood=21, hole.depth=0.1,
 
     # convert to pixels
     # p4$pixels<-round(p4$area/(terra::res(r)[1]*terra::res(r)[2]),0)
-    p4$pixels<-round(p4$area / terra::cellSize(r)[1][[1]],0)
+    r.cellSize<-terra::cellSize(r)[1][[1]]
+    p4$pixels<-round(p4$area / r.cellSize, 0)
 
     # filter by area
     p4$hideyhole <- (p4$pixels >= min.pixels)
@@ -92,6 +93,9 @@ HideyHole <- function(r, neighbourhood=21, hole.depth=0.1,
     # fetch depth of hideyhole
     p5$relative.depth <- terra::extract(r.df, p5, fun=max)[,2]
     p5$grid.height <- terra::extract(r, p5, fun=min)[,2]
+
+    # sum relative depths for each hole and multiply by pixel resolution to get volume
+    p5$volume <- terra::extract(r.df, p5, fun=max)[,2] * r.cellSize
 
     # tell us how many pixels
     print(paste("found", sum(p5$hideyhole==T), "hideyholes"))
