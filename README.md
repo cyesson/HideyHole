@@ -7,7 +7,7 @@ The code works by comparing pixel elevations against pixels in a local neighbour
 You can install the development version of HideyHole from GitHub with:
 ```r
 # install.packages("devtools")
-devtools::install_github("cyesson/TowedCameraTools")
+devtools::install_github("cyesson/HideyHole")
 ```
 
 Example
