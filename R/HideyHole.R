@@ -77,7 +77,7 @@ HideyHole <- function(r, neighbourhood=21, hole.depth=0.1,
 
     # convert to pixels
     # p4$pixels<-round(p4$area/(terra::res(r)[1]*terra::res(r)[2]),0)
-    r.cellSize<-terra::cellSize(r)[1][[1]]
+    r.cellSize<-terra::cellSize(r, transform=F)[1][[1]]
     p4$pixels<-round(p4$area / r.cellSize, 0)
 
     # filter by area
